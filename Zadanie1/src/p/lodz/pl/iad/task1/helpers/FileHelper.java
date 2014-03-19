@@ -39,5 +39,9 @@ public class FileHelper {
 
         return result;
     }
+    
+    public static void saveStatisticsToFile(Map<String, String> statistics){
+        
+    }
 
 }

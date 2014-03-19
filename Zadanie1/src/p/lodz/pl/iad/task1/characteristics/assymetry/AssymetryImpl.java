@@ -2,12 +2,14 @@ package p.lodz.pl.iad.task1.characteristics.assymetry;
 
 import java.util.List;
 
+import p.lodz.pl.iad.task1.characteristics.dispertion.StatisticalDispertionImpl;
+
 public class AssymetryImpl implements IAssymetry{
     
     @Override
     public Double calculateAssymetryCoefficient(List<Double> data){
-        //TODO
-       Double standardDeviation = calculateStandardDeviation(data);
+       StatisticalDispertionImpl statisticCalculations = new StatisticalDispertionImpl();
+       Double standardDeviation = statisticCalculations.calculateStandardDeviation(data);
        return null; 
     }
     
@@ -17,26 +19,6 @@ public class AssymetryImpl implements IAssymetry{
         return null;
     }
     
-    private Double calculateStandardDeviation(List<Double> data){
-        Double variance = calculateVariance(data);
-        return Math.sqrt(variance);
-    }
     
-    private Double calculateVariance(List<Double> data){
-        Double mean = calculateArithmeticMean(data);
-        Double temp = 0.0;
-        for(Double elem : data){
-            temp += (mean-elem)*(mean-elem);
-        }
-        return temp/data.size();
-    }
-    
-    private Double calculateArithmeticMean(List<Double> data){
-        Double sum = 0.0;
-        for (Double elem : data) {
-            sum += elem;
-        }
-        return sum / data.size();
-    }
 
 }

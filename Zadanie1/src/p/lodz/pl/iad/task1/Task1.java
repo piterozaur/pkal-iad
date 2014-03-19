@@ -6,6 +6,7 @@ import java.util.Map;
 
 import p.lodz.pl.iad.task1.gui.GraphicalUserInterface;
 import p.lodz.pl.iad.task1.helpers.FileHelper;
+import p.lodz.pl.iad.task1.helpers.PlotHelper;
 
 /**
  * 
@@ -24,17 +25,19 @@ public class Task1 {
         
         
         
+        PlotHelper.drawHistogram(null, null);
         
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    GraphicalUserInterface window = new GraphicalUserInterface();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    GraphicalUserInterface window = new GraphicalUserInterface();
+//                    window.frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
     }
 
