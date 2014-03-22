@@ -10,6 +10,6 @@ public interface IStatisticalDispertion {
 
     Double calculateVariance(List<Double> data);
 
-    Double calculateCoefficientOfVariantion(List<Double> data);
+    Double calculateVariantionCoefficient(List<Double> data);
 
 }

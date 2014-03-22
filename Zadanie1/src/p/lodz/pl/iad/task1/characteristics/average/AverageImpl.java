@@ -1,11 +1,8 @@
 package p.lodz.pl.iad.task1.characteristics.average;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AverageImpl implements IAverage{
 
@@ -38,38 +35,31 @@ public class AverageImpl implements IAverage{
     }
     
     @Override
-    public List<Double> calculateMode(List<Double> data){
-        Map<Double, Integer> occurences = new HashMap<Double, Integer>();
-        for(Double elem : data){
-            if(!occurences.containsKey(elem)){
-                occurences.put(elem, 1);
-            } else {
-                Integer curAmount = occurences.get(elem);
-                occurences.put(elem, curAmount+1);
-            }
-        }
-        
-        Integer maxOccurences = 0;
-        for(Double key : occurences.keySet()){
-            if(occurences.get(key)>maxOccurences){
-                maxOccurences = occurences.get(key);
-            }
-        }
-        
-        List<Double> modes = new ArrayList<Double>();
-        for(Double key : occurences.keySet()){
-            if(occurences.get(key).equals(maxOccurences)){
-                modes.add(key);
-            }
-        }
-        
-        return modes;
+    public Double calculateMedian(List<Double> data){
+        return calculateQuantile(data, 0.5);
     }
 
     @Override
-    public Double calculateQuantile(List<Double> data, Double q) {
+    public Double calculateQuantileOneFourth(List<Double> data){
+        return calculateQuantile(data, 0.25);
+    }
+
+    @Override
+    public Double calculateQuantileThreeFourth(List<Double> data){
+        return calculateQuantile(data, 0.75);
+    }
+    
+    /**
+     * Formula for quantile: x=floor(n*p)+1
+     */
+    private Double calculateQuantile(List<Double> data, Double q) {
         Collections.sort(data, new DataSorter());
-        return data.get((int) (data.size()*q));//TODO poprawić
+        int size = data.size();
+        if(q==0.5 && size%2==0){
+            return (data.get(size/2)+data.get(size/2)+1)/2;
+        }
+        Double d = Math.floor(size*q);
+        return data.get(d.intValue()+1);
     }
     
     private class DataSorter implements Comparator<Double> {

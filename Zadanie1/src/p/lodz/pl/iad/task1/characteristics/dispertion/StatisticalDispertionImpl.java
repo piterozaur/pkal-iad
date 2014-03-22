@@ -37,7 +37,7 @@ public class StatisticalDispertionImpl implements IStatisticalDispertion{
     }
     
     @Override
-    public Double calculateCoefficientOfVariantion(List<Double> data){
+    public Double calculateVariantionCoefficient(List<Double> data){
         Double standardDeviation = calculateStandardDeviation(data);
         Double mean = calculateArithmeticMean(data);
         return standardDeviation/mean;

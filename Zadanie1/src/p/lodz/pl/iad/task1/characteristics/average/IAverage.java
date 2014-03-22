@@ -10,8 +10,10 @@ public interface IAverage {
 
     Double calculateHarmonicMean(List<Double> data);
     
-    List<Double> calculateMode(List<Double> data);
+    Double calculateMedian(List<Double> data);
     
-    Double calculateQuantile(List<Double> data, Double q);
+    Double calculateQuantileOneFourth(List<Double> data);
+    
+    Double calculateQuantileThreeFourth(List<Double> data);
 
 }
