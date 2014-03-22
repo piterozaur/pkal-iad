@@ -21,9 +21,7 @@ public class Task1 {
     
     public static void main(String[] args) {
         
-        Map<Integer, List<Object>> dataList= FileHelper.readDataFromFile(PATH, SEPARATOR);
-        
-        
+        Map<Integer, Map<String, List<Double>>> dataList= FileHelper.readDataFromFile(PATH, SEPARATOR);
         
         PlotHelper.drawHistogram(null, null);
         

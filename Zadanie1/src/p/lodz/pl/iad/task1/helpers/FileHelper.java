@@ -10,8 +10,16 @@ import java.util.Map;
 
 public class FileHelper {
     
-    public static Map<Integer, List<Object>> readDataFromFile(String path, String separator){
-        Map<Integer, List<Object>> result = new HashMap<Integer, List<Object>>();
+    private static final String NO_NOMINAL_ATTRIBUTE = "none";
+    
+    /**
+     * 
+     * @param path
+     * @param separator
+     * @return map containing of n maps of "attribute value" - "list of values"
+     */
+    public static Map<Integer, Map<String, List<Double>>> readDataFromFile(String path, String separator){
+        Map<Integer, Map<String, List<Double>>> result = new HashMap<Integer, Map<String, List<Double>>>();
         try {
             boolean continueReading = true;
             @SuppressWarnings("resource")
@@ -22,13 +30,32 @@ public class FileHelper {
                     continueReading = false;
                 } else {
                     String[] data = line.split(separator);
+                    String nominalAttribute="";
                     for(int i=0; data.length>i; i++){
-                        if(result.containsKey(i)){
-                            result.get(i).add(data[i]);
-                        } else {
-                            List<Object> newList = new ArrayList<Object>();
-                            newList.add(data[i]);
-                            result.put(i, newList);
+                        if(data[i].matches(".*[a-zA-Z].*")){
+                            nominalAttribute=data[i];
+                        }
+                    }
+                    if(nominalAttribute.equals("")){
+                        nominalAttribute=NO_NOMINAL_ATTRIBUTE;
+                    }
+                    for(int i=0; data.length>i; i++){
+                        if(!data[i].matches(".*[a-zA-Z].*")){
+                            if(result.containsKey(i)){
+                                if (result.get(i).containsKey(nominalAttribute)){
+                                    result.get(i).get(nominalAttribute).add(Double.parseDouble(data[i]));
+                                } else {
+                                    List<Double> newList = new ArrayList<Double>();
+                                    newList.add(Double.parseDouble(data[i]));
+                                    result.get(i).put(nominalAttribute, newList);
+                                }
+                            } else {
+                                Map<String, List<Double>> newMap = new HashMap<String, List<Double>>();
+                                List<Double> newList = new ArrayList<Double>();
+                                newList.add(Double.parseDouble(data[i]));
+                                newMap.put(nominalAttribute, newList);
+                                result.put(i, newMap);
+                            }
                         }
                     }
                 }
@@ -41,7 +68,6 @@ public class FileHelper {
     }
     
     public static void saveStatisticsToFile(Map<String, String> statistics){
-        
     }
 
 }
