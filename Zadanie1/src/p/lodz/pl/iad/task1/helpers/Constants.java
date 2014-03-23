@@ -10,7 +10,10 @@ public class Constants {
     public static final String MEDIAN = "Median";
     
     //Assymetry
-    //TODO:
+    public static final String ASSYMETRY_COEFFICIENT = "Assymetry coefficient";
+    public static final String SKEWNESS_COEFFICIENT = "Skewness coefficient";
+    public static final String THIRD_CENTRAL_MOMENT = "Third central moment";
+    public static final String FOURTH_CENTRAL_MOMENT = "Fourth central moment";
     
     //Statistical Dispertion
     public static final String RANGE = "Range";

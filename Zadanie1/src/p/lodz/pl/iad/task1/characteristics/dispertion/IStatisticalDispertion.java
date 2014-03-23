@@ -4,12 +4,13 @@ import java.util.List;
 
 public interface IStatisticalDispertion {
 
-    Double calculateRange(List<Double> data);
+    //Rozstęp
+    double calculateRange(List<Double> data);
 
-    Double calculateStandardDeviation(List<Double> data);
+    double calculateStandardDeviation(List<Double> data);
 
-    Double calculateVariance(List<Double> data);
+    double calculateVariance(List<Double> data);
 
-    Double calculateVariantionCoefficient(List<Double> data);
+    double calculateVariantionCoefficient(List<Double> data);
 
 }

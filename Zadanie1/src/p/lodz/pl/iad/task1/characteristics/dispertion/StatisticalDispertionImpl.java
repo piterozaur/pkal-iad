@@ -5,10 +5,10 @@ import java.util.List;
 public class StatisticalDispertionImpl implements IStatisticalDispertion{
 
     @Override
-    public Double calculateRange(List<Double> data){
-        Double maxValue=data.get(0);
-        Double minValue=data.get(0);
-        for(Double elem : data){
+    public double calculateRange(List<Double> data){
+        double maxValue=data.get(0);
+        double minValue=data.get(0);
+        for(double elem : data){
             if(maxValue < elem){
                 maxValue = elem;
             }
@@ -16,36 +16,36 @@ public class StatisticalDispertionImpl implements IStatisticalDispertion{
                 minValue = elem;
             }
         }
-        Double range = maxValue - minValue;
+        double range = maxValue - minValue;
         return range;
     }
     
     @Override
-    public Double calculateStandardDeviation(List<Double> data){
-        Double variance = calculateVariance(data);
+    public double calculateStandardDeviation(List<Double> data){
+        double variance = calculateVariance(data);
         return Math.sqrt(variance);
     }
     
     @Override
-    public Double calculateVariance(List<Double> data){
-        Double mean = calculateArithmeticMean(data);
-        Double temp = 0.0;
-        for(Double elem : data){
+    public double calculateVariance(List<Double> data){
+        double mean = calculateArithmeticMean(data);
+        double temp = 0.0;
+        for(double elem : data){
             temp += (mean-elem)*(mean-elem);
         }
         return temp/data.size();
     }
     
     @Override
-    public Double calculateVariantionCoefficient(List<Double> data){
-        Double standardDeviation = calculateStandardDeviation(data);
-        Double mean = calculateArithmeticMean(data);
+    public double calculateVariantionCoefficient(List<Double> data){
+        double standardDeviation = calculateStandardDeviation(data);
+        double mean = calculateArithmeticMean(data);
         return standardDeviation/mean;
     }
     
-    private Double calculateArithmeticMean(List<Double> data){
-        Double sum = 0.0;
-        for (Double elem : data) {
+    private double calculateArithmeticMean(List<Double> data){
+        double sum = 0.0;
+        for (double elem : data) {
             sum += elem;
         }
         return sum / data.size();

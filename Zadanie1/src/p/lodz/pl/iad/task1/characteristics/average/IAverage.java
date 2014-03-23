@@ -4,16 +4,16 @@ import java.util.List;
 
 public interface IAverage {
 
-    Double calculateArithmeticMean(List<Double> data);
+    double calculateArithmeticMean(List<Double> data);
 
-    Double calculateGeometicMean(List<Double> data);
+    double calculateGeometicMean(List<Double> data);
 
-    Double calculateHarmonicMean(List<Double> data);
+    double calculateHarmonicMean(List<Double> data);
     
-    Double calculateMedian(List<Double> data);
+    double calculateMedian(List<Double> data);
     
-    Double calculateQuantileOneFourth(List<Double> data);
+    double calculateQuantileOneFourth(List<Double> data);
     
-    Double calculateQuantileThreeFourth(List<Double> data);
+    double calculateQuantileThreeFourth(List<Double> data);
 
 }

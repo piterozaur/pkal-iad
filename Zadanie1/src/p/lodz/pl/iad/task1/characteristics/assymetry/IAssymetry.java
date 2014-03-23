@@ -4,8 +4,12 @@ import java.util.List;
 
 public interface IAssymetry {
 
-    Double calculateAssymetryCoefficient(List<Double> data);
+    double calculateAssymetryCoefficient(List<Double> data);
 
-    Double calculateSkewnessCoefficient(List<Double> data);
+    double calculateSkewnessCoefficient(List<Double> data);
+    
+    double calculateThirdCentralMoment(List<Double> data);
+    
+    double calculateFourthCentralMoment(List<Double> data);
 
 }
