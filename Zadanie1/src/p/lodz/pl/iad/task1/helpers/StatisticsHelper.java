@@ -8,6 +8,8 @@ import p.lodz.pl.iad.task1.characteristics.assymetry.AssymetryImpl;
 import p.lodz.pl.iad.task1.characteristics.assymetry.IAssymetry;
 import p.lodz.pl.iad.task1.characteristics.average.AverageImpl;
 import p.lodz.pl.iad.task1.characteristics.average.IAverage;
+import p.lodz.pl.iad.task1.characteristics.concentration.ConcentrationDistributionImpl;
+import p.lodz.pl.iad.task1.characteristics.concentration.IConcentrationDistribution;
 import p.lodz.pl.iad.task1.characteristics.dispertion.IStatisticalDispertion;
 import p.lodz.pl.iad.task1.characteristics.dispertion.StatisticalDispertionImpl;
 
@@ -33,6 +35,7 @@ public class StatisticsHelper {
         statistics.putAll(getAverageStatistics(data));
         statistics.putAll(getAssymetryStatistics(data));
         statistics.putAll(getStatisticalDispertionStatistics(data));
+        statistics.putAll(getConcentrationDistributionStatistics(data));
         
         return statistics;
     }
@@ -51,18 +54,6 @@ public class StatisticsHelper {
         return statistics;
     }
     
-    public Map<String, Double> getAssymetryStatistics(List<Double> data){
-        IAssymetry assymetryStatistics = new AssymetryImpl();
-        Map<String, Double> statistics = new HashMap<String, Double>();
-
-        putStatistics(statistics, Constants.THIRD_CENTRAL_MOMENT, assymetryStatistics.calculateThirdCentralMoment(data));
-        putStatistics(statistics, Constants.FOURTH_CENTRAL_MOMENT, assymetryStatistics.calculateFourthCentralMoment(data));
-        putStatistics(statistics, Constants.ASSYMETRY_COEFFICIENT, assymetryStatistics.calculateAssymetryCoefficient(data));
-        putStatistics(statistics, Constants.SKEWNESS_COEFFICIENT, assymetryStatistics.calculateSkewnessCoefficient(data));
-        
-        return statistics;
-    }
-    
     public Map<String, Double> getStatisticalDispertionStatistics(List<Double> data){
         IStatisticalDispertion statisticalDispertionStatistics = new StatisticalDispertionImpl();
         Map<String, Double> statistics = new HashMap<String, Double>();
@@ -71,6 +62,25 @@ public class StatisticsHelper {
         putStatistics(statistics, Constants.STANDARD_DEVIATION, statisticalDispertionStatistics.calculateStandardDeviation(data));
         putStatistics(statistics, Constants.VARIANCE, statisticalDispertionStatistics.calculateVariance(data));
         putStatistics(statistics, Constants.VARIATION_COEFFICIENT, statisticalDispertionStatistics.calculateVariantionCoefficient(data));
+        
+        return statistics;
+    }
+    
+    public Map<String, Double> getAssymetryStatistics(List<Double> data){
+        IAssymetry assymetryStatistics = new AssymetryImpl();
+        Map<String, Double> statistics = new HashMap<String, Double>();
+
+        putStatistics(statistics, Constants.ASSYMETRY_COEFFICIENT, assymetryStatistics.calculateAssymetryCoefficient(data));
+        putStatistics(statistics, Constants.SKEWNESS_COEFFICIENT, assymetryStatistics.calculateSkewnessCoefficient(data));
+        
+        return statistics;
+    }
+    
+    public Map<String, Double> getConcentrationDistributionStatistics(List<Double> data){
+        IConcentrationDistribution concentrationDistributionStatistics = new ConcentrationDistributionImpl();
+        Map<String, Double> statistics = new HashMap<String, Double>();
+
+        putStatistics(statistics, Constants.CURTOSIS, concentrationDistributionStatistics.calculateCurtosis(data));
         
         return statistics;
     }
