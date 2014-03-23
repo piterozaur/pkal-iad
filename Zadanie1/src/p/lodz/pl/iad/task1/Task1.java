@@ -20,6 +20,7 @@ public class Task1 {
     private static final String SEPARATOR = ",";
     private static final String PATH = "/home/andrzej/Pulpit/sample";
     private static final String STATISTICS_PATH = "/home/andrzej/Pulpit/stats.txt";
+    private static final String HISTOGRAM_PATH = "/home/andrzej/Pulpit/IAD";
     
     public static void main(String[] args) {
         
@@ -31,7 +32,10 @@ public class Task1 {
         
         System.out.println(statisticsString);
         
-//        PlotHelper.drawHistogram(null, null);
+        //Draws histograms
+//        for(int key : dataMaps.keySet()){
+            PlotHelper.drawHistogram(dataMaps.get(1), HISTOGRAM_PATH);
+//        }
         
         
 //        EventQueue.invokeLater(new Runnable() {
