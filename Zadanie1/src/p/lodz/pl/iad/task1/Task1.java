@@ -17,14 +17,16 @@ import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
  */
 public class Task1 {
 
+	private static final String USER_DIR = System.getProperty("user.dir");
+	
+    private static final String SAMPLE_PATH = USER_DIR + "/data/sample.txt";
     private static final String SEPARATOR = ",";
-    private static final String PATH = "/home/andrzej/Pulpit/sample";
-    private static final String STATISTICS_PATH = "/home/andrzej/Pulpit/stats.txt";
-    private static final String HISTOGRAM_PATH = "/home/andrzej/Pulpit/IAD";
+    private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
+    private static final String HISTOGRAM_PATH = USER_DIR + "/data";
     
     public static void main(String[] args) {
         
-        Map<Integer, Map<String, List<Double>>> dataMaps= FileHelper.readDataFromFile(PATH, SEPARATOR);
+        Map<Integer, Map<String, List<Double>>> dataMaps= FileHelper.readDataFromFile(SAMPLE_PATH, SEPARATOR);
         StatisticsHelper statisticsHelper = new StatisticsHelper();
         
         Map<Integer, Map<String, Map<String, Double>>> statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
