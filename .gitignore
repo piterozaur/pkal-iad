@@ -1,3 +1,7 @@
 #Ignore executables
 #For Java
 *.class
+
+#Other
+.metadata/
+Zadanie1/.metadata/
