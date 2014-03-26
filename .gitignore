@@ -2,6 +2,12 @@
 #For Java
 *.class
 
+#Data directorry
+data/
+
+#Client specific
+Zadanie1/.classpath
+
 #Other
 .metadata/
 Zadanie1/.metadata/
