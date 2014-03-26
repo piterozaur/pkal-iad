@@ -12,7 +12,7 @@ import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
 /**
  * 
  * @author Andrzej Lisowski 171131
- * @author Piotr Kluch
+ * @author Piotr Kluch 165436
  *
  */
 public class Task1 {
