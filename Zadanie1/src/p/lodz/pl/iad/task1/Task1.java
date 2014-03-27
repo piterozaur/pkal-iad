@@ -19,7 +19,7 @@ public class Task1 {
 
 	private static final String USER_DIR = System.getProperty("user.dir");
 	
-    private static final String SAMPLE_PATH = USER_DIR + "/data/sample.txt";
+    private static final String SAMPLE_PATH = USER_DIR + "/data/sample.dat";
     private static final String SEPARATOR = ",";
     private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
     private static final String HISTOGRAM_PATH = USER_DIR + "/data";
