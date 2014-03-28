@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 import java.util.List;
 import java.util.Map;
 
-import p.lodz.pl.iad.task1.gui.GraphicalUserInterface;
+import javax.swing.UIManager;
+
 import p.lodz.pl.iad.task1.helpers.FileHelper;
 import p.lodz.pl.iad.task1.helpers.PlotHelper;
 import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
+
+import p.lodz.pl.iad.task1.gui.*;
 
 /**
  * 
@@ -23,7 +26,7 @@ public class Task1 {
     private static final String SEPARATOR = ",";
     private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
     private static final String HISTOGRAM_PATH = USER_DIR + "/data";
-    
+        
     public static void main(String[] args) {
         
         Map<Integer, Map<String, List<Double>>> dataMaps= FileHelper.readDataFromFile(SAMPLE_PATH, SEPARATOR);
@@ -40,16 +43,27 @@ public class Task1 {
 //        }
         
         
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    GraphicalUserInterface window = new GraphicalUserInterface();
-//                    window.frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+		EventQueue.invokeLater(new Runnable() {
+			
+		    private InitialWindow initialWindow;
+
+			public void run() {
+				try {
+					
+					//Turn off irritating boldness of swing metal theme
+					UIManager.put("swing.boldMetal", Boolean.FALSE); 
+
+					//Run the main application controller
+					initialWindow = new InitialWindow();
+					initialWindow.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
 
     }
 
