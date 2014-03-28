@@ -39,7 +39,7 @@ public class Task1 {
         
         //System.out.print(statisticsString);
         
-        System.out.println(statistics);
+        System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
         //System.out.print(Constants.);
         
         //Draws histograms
