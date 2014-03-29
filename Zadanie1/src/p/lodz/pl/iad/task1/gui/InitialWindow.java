@@ -160,7 +160,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		checkBoxes.setBackground(Color.LIGHT_GRAY);
 		
 		JScrollPane pane2 = new JScrollPane(checkBoxes);
-		checkBoxes.setLayout(new GridLayout(1, 0, 0, 0));
+		checkBoxes.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel.add(pane2);
 		
 		final TableColumnHider hider = new TableColumnHider(table);System.out.print("OK");
