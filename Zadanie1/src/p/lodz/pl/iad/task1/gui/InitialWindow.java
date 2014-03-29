@@ -1,6 +1,7 @@
 package p.lodz.pl.iad.task1.gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import p.lodz.pl.iad.task1.helpers.FileChooser;
 import p.lodz.pl.iad.task1.helpers.FileHelper;
@@ -36,7 +37,13 @@ public class InitialWindow extends JFrame implements ActionListener {
 	private JCheckBox chckbxAssymetryStatistics;
 	private JCheckBox chckbxStatisticalDispertionStatistics;
 	private JCheckBox chckbxConcentrationDistributionStatistics;
+	private JButton btnShowResultsInside;
+	private JTable table;
 
+	private DefaultTableModel model;
+
+	public Map<Integer, Map<String, Map<String, Double>>> statistics;
+	
 	/**
 	 * Create the application.
 	 */
@@ -53,7 +60,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 				
 		//Defaults
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(635,305);
+		this.setSize(766,597);
 		this.setLocation(200,200);
 		getContentPane().setLayout(null);
 		
@@ -98,7 +105,16 @@ public class InitialWindow extends JFrame implements ActionListener {
 		chckbxConcentrationDistributionStatistics = new JCheckBox("Concentration Distribution Statistics");
 		panel.add(chckbxConcentrationDistributionStatistics);
 		
+		btnShowResultsInside = new JButton("Show results inside the table");
+		btnShowResultsInside.setBounds(12, 255, 318, 25);
+		getContentPane().add(btnShowResultsInside);
 		
+		model = new DefaultTableModel();
+		table = new JTable(model);
+		table.setBounds(12, 292, 740, 243);
+		getContentPane().add(table);
+		
+
 		
 		
 		
@@ -142,6 +158,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		//theView.btnGenerateKeys.addActionListener(this);
 		
 		btnLoadDataSet.addActionListener(this);
+		btnShowResultsInside.addActionListener(this);
 
 	}
 	
@@ -164,7 +181,7 @@ public class InitialWindow extends JFrame implements ActionListener {
             Map<Integer, Map<String, List<Double>>> dataMaps = FileHelper.readDataFromFile(path, separator);
             StatisticsHelper statisticsHelper = new StatisticsHelper();
             
-            Map<Integer, Map<String, Map<String, Double>>> statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
+            statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
             //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
             
             //Set Info values
@@ -180,7 +197,35 @@ public class InitialWindow extends JFrame implements ActionListener {
             	comboBoxChooseAttribute.addItem( "Dataset: " + key );
             }
             
-            System.out.print(statistics.keySet().size());
+            //System.out.print(statistics.keySet().size());
+    		
+    	}
+    	
+    	if ( event.getSource() == btnShowResultsInside ) {
+    		
+    		// Create a couple of columns 
+    		model.addColumn("Col1"); 
+    		model.addColumn("Col2"); 
+
+    		// Append a row 
+    		
+    		
+    		System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
+    		
+    			//TODO tableData size x and y must be set differently, hardcoded now here.
+    			Object[][] tableData = new Object[statistics.get(0).get("Iris-virginica").keySet().size()][3];
+
+    			int index = 0;
+    			for (String key : statistics.get(0).keySet())
+    			{
+    				
+    				System.out.print(statistics.get(0).get(key).get("Assymetry coefficient"));
+    				System.out.print(statistics.get(0).get(key).get("Median"));
+    				System.out.print(statistics.get(0).get(key).get("Harmonic mean"));
+    				
+    			}
+    			
+    			model.addRow( tableData );
     		
     	}
     	
