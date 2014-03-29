@@ -87,6 +87,9 @@ public class InitialWindow extends JFrame implements ActionListener {
 		setTitle("Inteligentna Analiza Danych - Zadanie 1"); //[Piotr Kluch, Andrzej Lisowski]
 		initialize();
 		addActionListeners();
+		
+		//Load data at start
+		loadData(false);
 	}
 
 	/**
@@ -355,33 +358,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 
     	if ( event.getSource() == btnLoadDataSet ) {
     	
-    		//TODO Vars duplicates here
-    		String path;
-    		String separator = textFieldAttrSeparator.getText();
-    		
-    		FileChooser fc = new FileChooser();
-    		path = fc.openDialog();
-    	
-            Map<Integer, Map<String, List<Double>>> dataMaps = FileHelper.readDataFromFile(path, separator);
-            StatisticsHelper statisticsHelper = new StatisticsHelper();
-            
-            statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
-            //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
-            
-            //Set Info values
-            String fileName = fc.currentFileName;
-            textFieldFileName.setText( fileName );
-            String classesNumber = Integer.toString(statistics.get(0).keySet().size());
-            textFieldClassesNumber.setText( classesNumber );
-            String attributesNumber = Integer.toString(statistics.keySet().size()-1); //TODO better way (addon method)
-            textFieldAttributesNumber.setText( attributesNumber );
-            
-            //Add attributes to combo box
-            for(Integer key : statistics.keySet()){
-            	comboBoxChooseAttribute.addItem( "Dataset: " + key );
-            }
-            
-            //System.out.print(statistics.keySet().size());
+    		loadData(true);
     		
     	}
     	
@@ -406,10 +383,15 @@ public class InitialWindow extends JFrame implements ActionListener {
 			
 			model.addRow( tableData );
 			
+			String className = null;
+
+			
 			for (String key : statistics.get(dataSetValueKey).keySet())
 			{
+				//System.out.print(statistics.get(dataSetValueKey).keySet());
 				
-			    tableData[0] = statistics.get(key);
+				//Class name
+				tableData[0] = key;
 			    
 			    tableData[1] = statistics.get(dataSetValueKey).get(key).get("Assymetry coefficient").toString();
 			    tableData[2] = statistics.get(dataSetValueKey).get(key).get("Median").toString();
@@ -442,7 +424,50 @@ public class InitialWindow extends JFrame implements ActionListener {
 
     }
 
+	public void loadData(boolean dialogAction) {
+		
+		FileChooser fc = new FileChooser();
+		String path;
+		String separator;
+		
+		if ( dialogAction )  {
+		
+			//TODO Vars duplicates here
+			separator = textFieldAttrSeparator.getText();
+			
+			
+			path = fc.openDialog();
 	
+		} else {
+			
+			path = SAMPLE_PATH;
+			separator = textFieldAttrSeparator.getText();
+			
+		}
+		
+        Map<Integer, Map<String, List<Double>>> dataMaps = FileHelper.readDataFromFile(path, separator);
+        StatisticsHelper statisticsHelper = new StatisticsHelper();
+        
+        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
+        //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
+        
+		//Set Info values
+        String fileName = fc.currentFileName;
+        textFieldFileName.setText( fileName );
+        String classesNumber = Integer.toString(statistics.get(0).keySet().size());
+        textFieldClassesNumber.setText( classesNumber );
+        String attributesNumber = Integer.toString(statistics.keySet().size()-1); //TODO better way (addon method)
+        textFieldAttributesNumber.setText( attributesNumber );
+        
+        //Add attributes to combo box
+        for(Integer key : statistics.keySet()){
+        	comboBoxChooseAttribute.addItem( "Dataset: " + key );
+        }
+        
+        //System.out.print(statistics.keySet().size());
+		
+	}
+    
 	/**
 	 * All getters and setters for current view components
 	 */
