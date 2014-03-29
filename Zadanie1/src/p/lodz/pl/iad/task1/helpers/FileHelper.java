@@ -101,8 +101,8 @@ public class FileHelper {
                     sb.append(NEW_LINE);
                     for (String charactertic : statistics.get(dataSetNum).get(nominalValue).keySet()) {
                         sb.append("\t\t\t");
-                        //sb.append(charactertic);
-                       // sb.append(": ");
+                        sb.append(charactertic);
+                        sb.append(": ");
                         sb.append(statistics.get(dataSetNum).get(nominalValue).get(charactertic));
                         sb.append(NEW_LINE);
                     }
