@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import p.lodz.pl.iad.task1.helpers.FileChooser;
 import p.lodz.pl.iad.task1.helpers.FileHelper;
 import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
+import p.lodz.pl.iad.task1.helpers.TableColumnHider;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -33,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.CardLayout;
 
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
@@ -55,12 +59,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 
 
 	private JComboBox comboBoxChooseAttribute;
-	
-	private JCheckBox chckbxAverageStatistics;
-	private JCheckBox chckbxAssymetryStatistics;
-	private JCheckBox chckbxStatisticalDispertionStatistics;
-	private JCheckBox chckbxConcentrationDistributionStatistics;
-	private JButton btnShowResultsInside;
+	private JButton btnAppendResultsInside;
 	private JTable table;
 
 	private DefaultTableModel model;
@@ -92,7 +91,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		
 		//Initial GUI starts here
 		btnLoadDataSet = new JButton("Load data set from disk");
-		btnLoadDataSet.setBounds(12, 12, 202, 25);
+		btnLoadDataSet.setBounds(12, 12, 218, 25);
 		getContentPane().add(btnLoadDataSet);
 		
 		textFieldAttributesNumber = new JTextField();
@@ -111,65 +110,22 @@ public class InitialWindow extends JFrame implements ActionListener {
 		textFieldFileName.setColumns(10);
 		
 		comboBoxChooseAttribute = new JComboBox();
-		comboBoxChooseAttribute.setBounds(12, 49, 202, 24);
+		comboBoxChooseAttribute.setBounds(12, 49, 218, 25);
 		getContentPane().add(comboBoxChooseAttribute);
+
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(12, 96, 1021, 54);
 		panel.setBackground(Color.GRAY);
 		getContentPane().add(panel);
-		
-		chckbxAverageStatistics = new JCheckBox("Average Statistics");
-		chckbxAverageStatistics.setSelected(true);
-		chckbxAverageStatistics.setHorizontalAlignment(SwingConstants.LEFT);
-		
-		chckbxAssymetryStatistics = new JCheckBox("Assymetry Statistics");
-		chckbxAssymetryStatistics.setSelected(true);
-		chckbxAssymetryStatistics.setHorizontalAlignment(SwingConstants.LEFT);
-		
-		chckbxStatisticalDispertionStatistics = new JCheckBox("Statistical Dispertion Statistics");
-		chckbxConcentrationDistributionStatistics = new JCheckBox("Concentration Distribution Statistics");
-		
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panel.add(chckbxAverageStatistics);
-		panel.add(chckbxAssymetryStatistics);
-		panel.add(chckbxStatisticalDispertionStatistics);
-		panel.add(chckbxConcentrationDistributionStatistics);
-		
-		btnShowResultsInside = new JButton("Show results inside the table");
-		btnShowResultsInside.setBounds(12, 169, 243, 25);
-		getContentPane().add(btnShowResultsInside);
+						
+								
+		btnAppendResultsInside = new JButton("Append results inside the table");
+		btnAppendResultsInside.setBounds(12, 169, 284, 25);
+		getContentPane().add(btnAppendResultsInside);
 		
 		model = new DefaultTableModel();
 
-		panel_1 = new JPanel();
-		panel_1.setBounds(12, 206, 1021, 442);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		table = new JTable(model);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
-		JScrollPane pane = new JScrollPane(table);
-		pane.setBounds(0, 0, 1021, 442);
-		panel_1.add(pane);
-
-
-		JLabel lblDataFileName = new JLabel("Data file name:");
-		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDataFileName.setBounds(802, 12, 114, 15);
-		getContentPane().add(lblDataFileName);
-		
-		JLabel lblNumberOfAttributes = new JLabel("Number of attributes:");
-		lblNumberOfAttributes.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumberOfAttributes.setBounds(749, 40, 167, 19);
-		getContentPane().add(lblNumberOfAttributes);
-		
-		JLabel lblNumberOfClasses = new JLabel("Number of classes:");
-		lblNumberOfClasses.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumberOfClasses.setBounds(759, 67, 157, 15);
-		getContentPane().add(lblNumberOfClasses);
-		
 		// Create a couple of columns
 		model.addColumn("Class name");
 		
@@ -186,6 +142,75 @@ public class InitialWindow extends JFrame implements ActionListener {
 		model.addColumn("Quantile 1/4"); 
 		model.addColumn("Curtosis"); 
 		model.addColumn("Arithmetic mean"); 
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(12, 206, 1021, 442);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		table = new JTable(model);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		JScrollPane pane = new JScrollPane(table);
+		pane.setBounds(0, 0, 1021, 442);
+		panel_1.add(pane);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JPanel checkBoxes = new JPanel();
+		checkBoxes.setBackground(Color.LIGHT_GRAY);
+		
+		JScrollPane pane2 = new JScrollPane(checkBoxes);
+		checkBoxes.setLayout(new GridLayout(1, 0, 0, 0));
+		panel.add(pane2);
+		
+		final TableColumnHider hider = new TableColumnHider(table);System.out.print("OK");
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            JCheckBox checkBox = new JCheckBox(model.getColumnName(i));
+            checkBox.setSelected(true);
+            checkBox.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    JCheckBox cb = (JCheckBox) evt.getSource();
+                    String columnName = cb.getText();
+
+                    if (cb.isSelected()) {
+                        hider.show(columnName);
+                    } else {
+                        hider.hide(columnName);
+                    }
+                }
+            });
+            checkBoxes.add(checkBox);
+            System.out.print("OK");
+        }
+
+		
+		JLabel lblDataFileName = new JLabel("Data file name:");
+		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDataFileName.setBounds(802, 12, 114, 15);
+		getContentPane().add(lblDataFileName);
+		
+		JLabel lblNumberOfAttributes = new JLabel("Number of attributes:");
+		lblNumberOfAttributes.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNumberOfAttributes.setBounds(749, 40, 167, 19);
+		getContentPane().add(lblNumberOfAttributes);
+		
+		JLabel lblNumberOfClasses = new JLabel("Number of classes:");
+		lblNumberOfClasses.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNumberOfClasses.setBounds(759, 67, 157, 15);
+		getContentPane().add(lblNumberOfClasses);
+		
+		JButton btnClearResults = new JButton("Clear results");
+		btnClearResults.setBounds(308, 169, 157, 25);
+		getContentPane().add(btnClearResults);
+		btnClearResults.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 model.setRowCount(0);
+			}
+        });
+
 		
 		//Menu
 		JMenuBar menuBar = new JMenuBar();
@@ -227,7 +252,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		//theView.btnGenerateKeys.addActionListener(this);
 		
 		btnLoadDataSet.addActionListener(this);
-		btnShowResultsInside.addActionListener(this);
+		btnAppendResultsInside.addActionListener(this);
 
 	}
 	
@@ -270,46 +295,50 @@ public class InitialWindow extends JFrame implements ActionListener {
     		
     	}
     	
-    	if ( event.getSource() == btnShowResultsInside ) {
+    	if ( event.getSource() == btnAppendResultsInside ) {
     		
+    		String dataSetValue = comboBoxChooseAttribute.getSelectedItem().toString();
+    		
+			Pattern p = Pattern.compile("(\\d+)");
+			Matcher m = p.matcher(dataSetValue);
+			while(m.find())
+			{
+				dataSetValue = m.group(0);
+			}    		
+    		System.out.print(dataSetValue);
+    		
+    		int dataSetValueKey = Integer.parseInt(dataSetValue);
+    		
+    		//System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
+    		
+			//TODO tableData size x and y must be set differently, hardcoded now here.
+			Object[] tableData = new Object[14];
+			
+			model.addRow( tableData );
+			
+			for (String key : statistics.get(dataSetValueKey).keySet())
+			{
+				
+			    tableData[0] = statistics.get(key);
+			    
+			    tableData[1] = statistics.get(dataSetValueKey).get(key).get("Assymetry coefficient").toString();
+			    tableData[2] = statistics.get(dataSetValueKey).get(key).get("Median").toString();
+			    tableData[3] = statistics.get(dataSetValueKey).get(key).get("Quantile 3/4").toString();
+			    tableData[4] = statistics.get(dataSetValueKey).get(key).get("Range").toString();
+			    tableData[5] = statistics.get(dataSetValueKey).get(key).get("Harmonic mean").toString();
+			    tableData[6] = statistics.get(dataSetValueKey).get(key).get("Standard deviation").toString();
+			    tableData[7] = statistics.get(dataSetValueKey).get(key).get("Variance").toString();
+			    tableData[8] = statistics.get(dataSetValueKey).get(key).get("Geometric mean").toString();
+			    tableData[9] = statistics.get(dataSetValueKey).get(key).get("Variation coefficient").toString();
+			    tableData[10] = statistics.get(dataSetValueKey).get(key).get("Skewness coefficient").toString();
+			    tableData[11] = statistics.get(dataSetValueKey).get(key).get("Quantile 1/4").toString();
+			    tableData[12] = statistics.get(dataSetValueKey).get(key).get("Curtosis").toString();
+			    tableData[13] = statistics.get(dataSetValueKey).get(key).get("Arithmetic mean").toString();
 
-
-    		// Append a row 
-    		
-    		
-    		System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
-    		
-    			//TODO tableData size x and y must be set differently, hardcoded now here.
-    			Object[] tableData = new Object[14];
-    			
-    			model.addRow( tableData );
-    			
-    			for (String key : statistics.get(0).keySet())
-    			{
-    				
-    			    tableData[0] = statistics.get(key);
-    			    
-    			    tableData[1] = statistics.get(0).get(key).get("Assymetry coefficient").toString();
-    			    tableData[2] = statistics.get(0).get(key).get("Median").toString();
-    			    tableData[3] = statistics.get(0).get(key).get("Quantile 3/4").toString();
-    			    tableData[4] = statistics.get(0).get(key).get("Range").toString();
-    			    tableData[5] = statistics.get(0).get(key).get("Harmonic mean").toString();
-    			    tableData[6] = statistics.get(0).get(key).get("Standard deviation").toString();
-    			    tableData[7] = statistics.get(0).get(key).get("Variance").toString();
-    			    tableData[8] = statistics.get(0).get(key).get("Geometric mean").toString();
-    			    tableData[9] = statistics.get(0).get(key).get("Variation coefficient").toString();
-    			    tableData[10] = statistics.get(0).get(key).get("Skewness coefficient").toString();
-    			    tableData[11] = statistics.get(0).get(key).get("Quantile 1/4").toString();
-    			    tableData[12] = statistics.get(0).get(key).get("Curtosis").toString();
-    			    tableData[13] = statistics.get(0).get(key).get("Arithmetic mean").toString();
-
-    			    model.addRow( tableData );
-    				
-    			}
-    			
-    			//model.addRow( tableData );
-    			
-    			
+			    model.addRow( tableData );
+				
+			}			
+			
     		
     	}
     	
@@ -330,5 +359,4 @@ public class InitialWindow extends JFrame implements ActionListener {
 	public void setKeys(String something) {
 	
 	}
-	
 }
