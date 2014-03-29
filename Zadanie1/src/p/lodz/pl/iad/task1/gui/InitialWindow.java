@@ -1,6 +1,7 @@
 package p.lodz.pl.iad.task1.gui;
 
 import javax.swing.*;
+
 import javax.swing.table.DefaultTableModel;
 
 import p.lodz.pl.iad.task1.helpers.FileChooser;
@@ -13,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.GridLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
  
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
@@ -20,6 +24,7 @@ import java.awt.GridLayout;
  * @author Piotr Kluch 165436
  *
  */
+
 public class InitialWindow extends JFrame implements ActionListener {
 
 	/**
@@ -45,7 +50,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 
 	public Map<Integer, Map<String, Map<String, Double>>> statistics;
 	private JPanel panel_1;
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -63,6 +68,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		//Defaults
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(766,597);
+
 		this.setLocation(200,200);
 		getContentPane().setLayout(null);
 		
@@ -125,8 +131,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		JScrollPane pane = new JScrollPane(table);
 		panel_1.add(pane);
 		
-		
-		
+
 		
 		//Menu
 		JMenuBar menuBar = new JMenuBar();
@@ -170,6 +175,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		btnLoadDataSet.addActionListener(this);
 		btnShowResultsInside.addActionListener(this);
 
+
 	}
 	
 	
@@ -179,6 +185,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	 */
     public void actionPerformed(ActionEvent event){
     	
+
     	if ( event.getSource() == btnLoadDataSet ) {
     	
     		//TODO Vars duplicates here
@@ -254,13 +261,14 @@ public class InitialWindow extends JFrame implements ActionListener {
     		
     	}
     	
+
     	////Generate keys
         //if ( event.getSource() == theView.btnGenerateKeys ) {
             
         //	setKeys(generateKey_1(), generateKey_2(), generateKey_3());
         	
         //}
-       
+
     }
 
 	
