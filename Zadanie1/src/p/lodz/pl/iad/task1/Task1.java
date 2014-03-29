@@ -48,27 +48,27 @@ public class Task1 {
 //        }
         
         
-//		EventQueue.invokeLater(new Runnable() {
-//			
-//		    private InitialWindow initialWindow;
-//
-//			public void run() {
-//				try {
-//					
-//					//Turn off irritating boldness of swing metal theme
-//					UIManager.put("swing.boldMetal", Boolean.FALSE); 
-//
-//					//Run the main application controller
-//					initialWindow = new InitialWindow();
-//					initialWindow.setVisible(true);
-//					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				
-//			}
-//			
-//		});
+		EventQueue.invokeLater(new Runnable() {
+			
+		    private InitialWindow initialWindow;
+
+			public void run() {
+				try {
+					
+					//Turn off irritating boldness of swing metal theme
+					UIManager.put("swing.boldMetal", Boolean.FALSE); 
+
+					//Run the main application controller
+					initialWindow = new InitialWindow();
+					initialWindow.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		});
 
     }
 
