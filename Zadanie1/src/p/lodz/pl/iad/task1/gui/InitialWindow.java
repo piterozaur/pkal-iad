@@ -430,6 +430,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		FileChooser fc = new FileChooser();
 		String path;
 		String separator;
+		String fileName = null;
 		
 		if ( dialogAction )  {
 		
@@ -438,11 +439,15 @@ public class InitialWindow extends JFrame implements ActionListener {
 			
 			
 			path = fc.openDialog();
+			fileName = fc.currentFileName;
 	
 		} else {
 			
 			path = SAMPLE_PATH;
 			separator = textFieldAttrSeparator.getText();
+			String table[] = path.split("/");
+			int tSize = table.length;
+			fileName = table[tSize-1];
 			
 		}
 		
@@ -453,7 +458,6 @@ public class InitialWindow extends JFrame implements ActionListener {
         //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
         
 		//Set Info values
-        String fileName = fc.currentFileName;
         textFieldFileName.setText( fileName );
         String classesNumber = Integer.toString(statistics.get(0).keySet().size());
         textFieldClassesNumber.setText( classesNumber );
@@ -471,7 +475,7 @@ public class InitialWindow extends JFrame implements ActionListener {
         
         //Draws histograms
         for(int key : dataMaps.keySet()){
-            PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
+            //PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
         }
         
 		
