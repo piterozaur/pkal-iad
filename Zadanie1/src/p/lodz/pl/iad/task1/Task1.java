@@ -45,12 +45,7 @@ public class Task1 {
         
         //System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
         //System.out.print(Constants.);
-        
-        //Draws histograms
-//        for(int key : dataMaps.keySet()){
-            //PlotHelper.drawHistogram(dataMaps.get(1), HISTOGRAM_PATH);
-//        }
-        
+
         
 		EventQueue.invokeLater(new Runnable() {
 			
