@@ -66,6 +66,10 @@ public class InitialWindow extends JFrame implements ActionListener {
 
 	public Map<Integer, Map<String, Map<String, Double>>> statistics;
 	private JPanel panel_1;
+	private JTextField textField;
+	private JTextField textField_2;
+
+	private JTextField textFieldAttrSeparator;
 
 	
 	/**
@@ -84,44 +88,44 @@ public class InitialWindow extends JFrame implements ActionListener {
 				
 		//Defaults
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1047,710);
+		this.setSize(1047,759);
 
 		this.setLocation(200,200);
 		getContentPane().setLayout(null);
 		
 		//Initial GUI starts here
 		btnLoadDataSet = new JButton("Load data set from disk");
-		btnLoadDataSet.setBounds(12, 12, 218, 25);
+		btnLoadDataSet.setBounds(12, 12, 238, 39);
 		getContentPane().add(btnLoadDataSet);
 		
 		textFieldAttributesNumber = new JTextField();
-		textFieldAttributesNumber.setBounds(919, 40, 114, 19);
+		textFieldAttributesNumber.setBounds(900, 37, 114, 19);
 		getContentPane().add(textFieldAttributesNumber);
 		textFieldAttributesNumber.setColumns(10);
 		
 		textFieldClassesNumber = new JTextField();
-		textFieldClassesNumber.setBounds(919, 65, 114, 19);
+		textFieldClassesNumber.setBounds(900, 62, 114, 19);
 		getContentPane().add(textFieldClassesNumber);
 		textFieldClassesNumber.setColumns(10);
 		
 		textFieldFileName = new JTextField();
-		textFieldFileName.setBounds(919, 12, 114, 19);
+		textFieldFileName.setBounds(900, 12, 114, 19);
 		getContentPane().add(textFieldFileName);
 		textFieldFileName.setColumns(10);
 		
 		comboBoxChooseAttribute = new JComboBox();
-		comboBoxChooseAttribute.setBounds(12, 49, 218, 25);
+		comboBoxChooseAttribute.setBounds(12, 62, 238, 22);
 		getContentPane().add(comboBoxChooseAttribute);
 
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 96, 1021, 54);
+		panel.setBounds(12, 145, 1021, 54);
 		panel.setBackground(Color.GRAY);
 		getContentPane().add(panel);
 						
 								
 		btnAppendResultsInside = new JButton("Append results inside the table");
-		btnAppendResultsInside.setBounds(12, 169, 284, 25);
+		btnAppendResultsInside.setBounds(12, 218, 284, 25);
 		getContentPane().add(btnAppendResultsInside);
 		
 		model = new DefaultTableModel();
@@ -142,28 +146,28 @@ public class InitialWindow extends JFrame implements ActionListener {
 		model.addColumn("Quantile 1/4"); 
 		model.addColumn("Curtosis"); 
 		model.addColumn("Arithmetic mean"); 
-		
-		panel_1 = new JPanel();
-		panel_1.setBounds(12, 206, 1021, 442);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		table = new JTable(model);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
-		JScrollPane pane = new JScrollPane(table);
-		pane.setBounds(0, 0, 1021, 442);
-		panel_1.add(pane);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel checkBoxes = new JPanel();
 		checkBoxes.setBackground(Color.LIGHT_GRAY);
 		
+		
+		table = new JTable(model);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		JScrollPane pane = new JScrollPane(table);
+		pane.setBounds(12, 255, 1021, 442);
+		getContentPane().add(pane);
+				
+		panel_1 = new JPanel();
+		pane.setColumnHeaderView(panel_1);
+		panel_1.setLayout(null);
+		
 		JScrollPane pane2 = new JScrollPane(checkBoxes);
 		checkBoxes.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel.add(pane2);
 		
-		final TableColumnHider hider = new TableColumnHider(table);System.out.print("OK");
+		final TableColumnHider hider = new TableColumnHider(table);
         for (int i = 0; i < model.getColumnCount(); i++) {
             JCheckBox checkBox = new JCheckBox(model.getColumnName(i));
             checkBox.setSelected(true);
@@ -182,28 +186,81 @@ public class InitialWindow extends JFrame implements ActionListener {
                 }
             });
             checkBoxes.add(checkBox);
-            System.out.print("OK");
         }
 
 		
 		JLabel lblDataFileName = new JLabel("Data file name:");
 		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDataFileName.setBounds(802, 12, 114, 15);
+		lblDataFileName.setBounds(784, 14, 114, 15);
 		getContentPane().add(lblDataFileName);
 		
 		JLabel lblNumberOfAttributes = new JLabel("Number of attributes:");
 		lblNumberOfAttributes.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumberOfAttributes.setBounds(749, 40, 167, 19);
+		lblNumberOfAttributes.setBounds(730, 37, 167, 19);
 		getContentPane().add(lblNumberOfAttributes);
 		
 		JLabel lblNumberOfClasses = new JLabel("Number of classes:");
 		lblNumberOfClasses.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumberOfClasses.setBounds(759, 67, 157, 15);
+		lblNumberOfClasses.setBounds(740, 64, 157, 15);
 		getContentPane().add(lblNumberOfClasses);
 		
 		JButton btnClearResults = new JButton("Clear results");
-		btnClearResults.setBounds(308, 169, 157, 25);
+		btnClearResults.setBounds(308, 218, 157, 25);
 		getContentPane().add(btnClearResults);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.GRAY);
+		panel_2.setBounds(662, 0, 371, 96);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setForeground(Color.GREEN);
+		lblInfo.setBounds(12, 12, 70, 15);
+		panel_2.add(lblInfo);
+		
+		JLabel lblAttributesSeparator = new JLabel("Attributes separator:");
+		lblAttributesSeparator.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAttributesSeparator.setBounds(365, 14, 167, 15);
+		getContentPane().add(lblAttributesSeparator);
+		
+		textFieldAttrSeparator = new JTextField();
+		textFieldAttrSeparator.setText(",");
+		textFieldAttrSeparator.setColumns(10);
+		textFieldAttrSeparator.setBounds(534, 12, 114, 19);
+		getContentPane().add(textFieldAttrSeparator);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(285, 62, 363, 19);
+		getContentPane().add(textField_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setForeground(Color.LIGHT_GRAY);
+		panel_3.setLayout(null);
+		panel_3.setBackground(UIManager.getColor("Button.darkShadow"));
+		panel_3.setBounds(262, 0, 405, 96);
+		getContentPane().add(panel_3);
+		
+		JLabel lblSettings = new JLabel("Settings");
+		lblSettings.setForeground(UIManager.getColor("Button.select"));
+		lblSettings.setBounds(12, 12, 70, 15);
+		panel_3.add(lblSettings);
+		
+		JLabel lblOutputFileName = new JLabel("Output file path:");
+		lblOutputFileName.setBounds(22, 43, 167, 19);
+		panel_3.add(lblOutputFileName);
+		lblOutputFileName.setHorizontalAlignment(SwingConstants.LEFT);
+
+		
+		JLabel lblSelectFilter = new JLabel("Select / filter out appropriate attributes:");
+		lblSelectFilter.setBounds(12, 118, 414, 15);
+		getContentPane().add(lblSelectFilter);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setBounds(0, 106, 1045, 103);
+		getContentPane().add(panel_4);
 		btnClearResults.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -267,7 +324,7 @@ public class InitialWindow extends JFrame implements ActionListener {
     	
     		//TODO Vars duplicates here
     		String path;
-    		String separator = ",";
+    		String separator = textFieldAttrSeparator.getText();
     		
     		FileChooser fc = new FileChooser();
     		path = fc.openDialog();
