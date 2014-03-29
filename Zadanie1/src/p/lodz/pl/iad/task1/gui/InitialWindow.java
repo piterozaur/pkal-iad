@@ -52,6 +52,13 @@ public class InitialWindow extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private static final String USER_DIR = System.getProperty("user.dir");
+	
+    private static final String SAMPLE_PATH = USER_DIR + "/data/sample.dat";
+    private static final String SEPARATOR = ",";
+    private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
+    private static final String HISTOGRAM_PATH = USER_DIR + "/data";
+	
 	public JButton btnLoadDataSet;
 	public JTextField textFieldAttributesNumber;
 	public JTextField textFieldClassesNumber;
@@ -67,11 +74,11 @@ public class InitialWindow extends JFrame implements ActionListener {
 	public Map<Integer, Map<String, Map<String, Double>>> statistics;
 	private JPanel panel_1;
 	private JTextField textField;
-	private JTextField textField_2;
+	private JTextField textFieldSavePath;
 
 	private JTextField textFieldAttrSeparator;
 
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -191,7 +198,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		
 		JLabel lblDataFileName = new JLabel("Data file name:");
 		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDataFileName.setBounds(784, 14, 114, 15);
+		lblDataFileName.setBounds(730, 14, 168, 15);
 		getContentPane().add(lblDataFileName);
 		
 		JLabel lblNumberOfAttributes = new JLabel("Number of attributes:");
@@ -207,6 +214,12 @@ public class InitialWindow extends JFrame implements ActionListener {
 		JButton btnClearResults = new JButton("Clear results");
 		btnClearResults.setBounds(308, 218, 157, 25);
 		getContentPane().add(btnClearResults);
+		btnClearResults.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 model.setRowCount(0);
+			}
+        });
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.GRAY);
@@ -219,21 +232,11 @@ public class InitialWindow extends JFrame implements ActionListener {
 		lblInfo.setBounds(12, 12, 70, 15);
 		panel_2.add(lblInfo);
 		
-		JLabel lblAttributesSeparator = new JLabel("Attributes separator:");
-		lblAttributesSeparator.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAttributesSeparator.setBounds(365, 14, 167, 15);
-		getContentPane().add(lblAttributesSeparator);
-		
-		textFieldAttrSeparator = new JTextField();
-		textFieldAttrSeparator.setText(",");
-		textFieldAttrSeparator.setColumns(10);
-		textFieldAttrSeparator.setBounds(534, 12, 114, 19);
-		getContentPane().add(textFieldAttrSeparator);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(285, 62, 363, 19);
-		getContentPane().add(textField_2);
+		textFieldSavePath = new JTextField();
+		textFieldSavePath.setColumns(10);
+		textFieldSavePath.setBounds(279, 62, 371, 19);
+		getContentPane().add(textFieldSavePath);
+		textFieldSavePath.setText(STATISTICS_PATH);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setForeground(Color.LIGHT_GRAY);
@@ -248,9 +251,22 @@ public class InitialWindow extends JFrame implements ActionListener {
 		panel_3.add(lblSettings);
 		
 		JLabel lblOutputFileName = new JLabel("Output file path:");
-		lblOutputFileName.setBounds(22, 43, 167, 19);
+		lblOutputFileName.setForeground(UIManager.getColor("RadioButtonMenuItem.background"));
+		lblOutputFileName.setBounds(22, 44, 167, 19);
 		panel_3.add(lblOutputFileName);
 		lblOutputFileName.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		textFieldAttrSeparator = new JTextField();
+		textFieldAttrSeparator.setBounds(273, 12, 114, 19);
+		panel_3.add(textFieldAttrSeparator);
+		textFieldAttrSeparator.setText(",");
+		textFieldAttrSeparator.setColumns(10);
+		
+		JLabel lblAttributesSeparator = new JLabel("Attributes separator:");
+		lblAttributesSeparator.setBounds(100, 12, 167, 15);
+		panel_3.add(lblAttributesSeparator);
+		lblAttributesSeparator.setForeground(UIManager.getColor("RadioButtonMenuItem.background"));
+		lblAttributesSeparator.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		
 		JLabel lblSelectFilter = new JLabel("Select / filter out appropriate attributes:");
@@ -261,10 +277,14 @@ public class InitialWindow extends JFrame implements ActionListener {
 		panel_4.setBackground(Color.WHITE);
 		panel_4.setBounds(0, 106, 1045, 103);
 		getContentPane().add(panel_4);
-		btnClearResults.addActionListener(new ActionListener() {
+		
+		JButton btnSaveCharacteristics = new JButton("Save characteristics");
+		btnSaveCharacteristics.setBounds(820, 218, 213, 25);
+		getContentPane().add(btnSaveCharacteristics);
+		btnSaveCharacteristics.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 model.setRowCount(0);
+		        String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, textFieldSavePath.getText());
 			}
         });
 
