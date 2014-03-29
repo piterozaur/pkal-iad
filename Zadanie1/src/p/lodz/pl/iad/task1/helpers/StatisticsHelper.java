@@ -72,6 +72,8 @@ public class StatisticsHelper {
 
         putStatistics(statistics, Constants.ASSYMETRY_COEFFICIENT, assymetryStatistics.calculateAssymetryCoefficient(data));
         putStatistics(statistics, Constants.SKEWNESS_COEFFICIENT, assymetryStatistics.calculateSkewnessCoefficient(data));
+        putStatistics(statistics, Constants.THIRD_CENTRAL_MOMENT, assymetryStatistics.calculateThirdCentralMoment(data));
+        putStatistics(statistics, Constants.FOURTH_CENTRAL_MOMENT, assymetryStatistics.calculateFourthCentralMoment(data));
         
         return statistics;
     }
