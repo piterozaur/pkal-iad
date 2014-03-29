@@ -77,6 +77,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	private JTextField textFieldSavePath;
 
 	private JTextField textFieldAttrSeparator;
+	private JTextField textFieldHistogramDir;
 
 
 	/**
@@ -232,12 +233,6 @@ public class InitialWindow extends JFrame implements ActionListener {
 		lblInfo.setBounds(12, 12, 70, 15);
 		panel_2.add(lblInfo);
 		
-		textFieldSavePath = new JTextField();
-		textFieldSavePath.setColumns(10);
-		textFieldSavePath.setBounds(279, 62, 371, 19);
-		getContentPane().add(textFieldSavePath);
-		textFieldSavePath.setText(STATISTICS_PATH);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setForeground(Color.LIGHT_GRAY);
 		panel_3.setLayout(null);
@@ -252,7 +247,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		
 		JLabel lblOutputFileName = new JLabel("Output file path:");
 		lblOutputFileName.setForeground(UIManager.getColor("RadioButtonMenuItem.background"));
-		lblOutputFileName.setBounds(22, 44, 167, 19);
+		lblOutputFileName.setBounds(32, 44, 167, 19);
 		panel_3.add(lblOutputFileName);
 		lblOutputFileName.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -267,6 +262,24 @@ public class InitialWindow extends JFrame implements ActionListener {
 		panel_3.add(lblAttributesSeparator);
 		lblAttributesSeparator.setForeground(UIManager.getColor("RadioButtonMenuItem.background"));
 		lblAttributesSeparator.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		textFieldSavePath = new JTextField();
+		textFieldSavePath.setBounds(158, 44, 229, 19);
+		panel_3.add(textFieldSavePath);
+		textFieldSavePath.setColumns(10);
+		textFieldSavePath.setText(STATISTICS_PATH);
+		
+		textFieldHistogramDir = new JTextField();
+		textFieldHistogramDir.setText(HISTOGRAM_PATH);
+		textFieldHistogramDir.setColumns(10);
+		textFieldHistogramDir.setBounds(158, 65, 229, 19);
+		panel_3.add(textFieldHistogramDir);
+		
+		JLabel lblHistogramDirPath = new JLabel("Histogram dir path:");
+		lblHistogramDirPath.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHistogramDirPath.setForeground(UIManager.getColor("Button.background"));
+		lblHistogramDirPath.setBounds(12, 65, 167, 19);
+		panel_3.add(lblHistogramDirPath);
 
 		
 		JLabel lblSelectFilter = new JLabel("Select / filter out appropriate attributes:");
