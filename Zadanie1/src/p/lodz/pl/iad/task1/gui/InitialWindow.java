@@ -13,6 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.GridLayout;
+<<<<<<< HEAD
+=======
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.GroupLayout.Alignment;
+>>>>>>> Swing modifications
  
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
@@ -62,7 +71,8 @@ public class InitialWindow extends JFrame implements ActionListener {
 				
 		//Defaults
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(766,597);
+		this.setSize(1047,710);
+
 		this.setLocation(200,200);
 		getContentPane().setLayout(null);
 		
@@ -72,61 +82,95 @@ public class InitialWindow extends JFrame implements ActionListener {
 		getContentPane().add(btnLoadDataSet);
 		
 		textFieldAttributesNumber = new JTextField();
-		textFieldAttributesNumber.setBounds(495, 77, 114, 19);
+		textFieldAttributesNumber.setBounds(919, 40, 114, 19);
 		getContentPane().add(textFieldAttributesNumber);
 		textFieldAttributesNumber.setColumns(10);
 		
 		textFieldClassesNumber = new JTextField();
-		textFieldClassesNumber.setBounds(495, 46, 114, 19);
+		textFieldClassesNumber.setBounds(919, 65, 114, 19);
 		getContentPane().add(textFieldClassesNumber);
 		textFieldClassesNumber.setColumns(10);
 		
 		textFieldFileName = new JTextField();
-		textFieldFileName.setBounds(495, 15, 114, 19);
+		textFieldFileName.setBounds(919, 12, 114, 19);
 		getContentPane().add(textFieldFileName);
 		textFieldFileName.setColumns(10);
 		
 		comboBoxChooseAttribute = new JComboBox();
-		comboBoxChooseAttribute.setBounds(12, 49, 202, 25);
+		comboBoxChooseAttribute.setBounds(12, 49, 202, 24);
 		getContentPane().add(comboBoxChooseAttribute);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(12, 96, 1021, 54);
 		panel.setBackground(Color.GRAY);
-		panel.setBounds(12, 88, 264, 155);
 		getContentPane().add(panel);
 		
 		chckbxAverageStatistics = new JCheckBox("Average Statistics");
-		panel.add(chckbxAverageStatistics);
+		chckbxAverageStatistics.setSelected(true);
+		chckbxAverageStatistics.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		chckbxAssymetryStatistics = new JCheckBox("Assymetry Statistics");
-		panel.add(chckbxAssymetryStatistics);
+		chckbxAssymetryStatistics.setSelected(true);
+		chckbxAssymetryStatistics.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		chckbxStatisticalDispertionStatistics = new JCheckBox("Statistical Dispertion Statistics");
-		panel.add(chckbxStatisticalDispertionStatistics);
-		
 		chckbxConcentrationDistributionStatistics = new JCheckBox("Concentration Distribution Statistics");
+		
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.add(chckbxAverageStatistics);
+		panel.add(chckbxAssymetryStatistics);
+		panel.add(chckbxStatisticalDispertionStatistics);
 		panel.add(chckbxConcentrationDistributionStatistics);
 		
 		btnShowResultsInside = new JButton("Show results inside the table");
-		btnShowResultsInside.setBounds(12, 255, 318, 25);
+		btnShowResultsInside.setBounds(12, 169, 243, 25);
 		getContentPane().add(btnShowResultsInside);
 		
 		model = new DefaultTableModel();
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(22, 292, 707, 230);
+		panel_1.setBounds(12, 206, 1021, 442);
 		getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_1.setLayout(null);
+		
 		table = new JTable(model);
-		table.setBounds(12, 292, 740, 243);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		getContentPane().add(table);
 		
 		JScrollPane pane = new JScrollPane(table);
+		pane.setBounds(0, 0, 1021, 442);
 		panel_1.add(pane);
+
+		JLabel lblDataFileName = new JLabel("Data file name:");
+		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDataFileName.setBounds(802, 12, 114, 15);
+		getContentPane().add(lblDataFileName);
 		
+		JLabel lblNumberOfAttributes = new JLabel("Number of attributes:");
+		lblNumberOfAttributes.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNumberOfAttributes.setBounds(749, 40, 167, 19);
+		getContentPane().add(lblNumberOfAttributes);
 		
+		JLabel lblNumberOfClasses = new JLabel("Number of classes:");
+		lblNumberOfClasses.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNumberOfClasses.setBounds(759, 67, 157, 15);
+		getContentPane().add(lblNumberOfClasses);
 		
+		// Create a couple of columns
+		model.addColumn("Class name");
+		
+		model.addColumn("Assymetry coefficient"); 
+		model.addColumn("Median");
+		model.addColumn("Quantile 3/4"); 
+		model.addColumn("Range"); 
+		model.addColumn("Harmonic mean"); 
+		model.addColumn("Standard deviation"); 
+		model.addColumn("Variance"); 
+		model.addColumn("Geometric mean"); 
+		model.addColumn("Variation coefficient"); 
+		model.addColumn("Skewness coefficient"); 
+		model.addColumn("Quantile 1/4"); 
+		model.addColumn("Curtosis"); 
+		model.addColumn("Arithmetic mean"); 
 		
 		//Menu
 		JMenuBar menuBar = new JMenuBar();
@@ -213,8 +257,7 @@ public class InitialWindow extends JFrame implements ActionListener {
     	
     	if ( event.getSource() == btnShowResultsInside ) {
     		
-    		// Create a couple of columns 
-    		model.addColumn("iris-who"); 
+
 
     		// Append a row 
     		
@@ -222,28 +265,29 @@ public class InitialWindow extends JFrame implements ActionListener {
     		System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
     		
     			//TODO tableData size x and y must be set differently, hardcoded now here.
-    			Object[] tableData = new Object[3];
-    			
-    			tableData[0] = "AC";
-    			tableData[1] = "Median";
-    			tableData[2] = "H mean";
+    			Object[] tableData = new Object[14];
     			
     			model.addRow( tableData );
     			
-    			int index = 0;
     			for (String key : statistics.get(0).keySet())
     			{
     				
-    				String ac = statistics.get(0).get(key).get("Assymetry coefficient").toString();
-    				String median = statistics.get(0).get(key).get("Median").toString();
-    				String hmean = statistics.get(0).get(key).get("Harmonic mean").toString();
-    				
-    				
-    			    tableData[0] = ac;
-    			    tableData[1] = median;
-    			    tableData[2] = hmean;
-    			    // and so forth
-    			    index++;
+    			    tableData[0] = statistics.get(key);
+    			    
+    			    tableData[1] = statistics.get(0).get(key).get("Assymetry coefficient").toString();
+    			    tableData[2] = statistics.get(0).get(key).get("Median").toString();
+    			    tableData[3] = statistics.get(0).get(key).get("Quantile 3/4").toString();
+    			    tableData[4] = statistics.get(0).get(key).get("Range").toString();
+    			    tableData[5] = statistics.get(0).get(key).get("Harmonic mean").toString();
+    			    tableData[6] = statistics.get(0).get(key).get("Standard deviation").toString();
+    			    tableData[7] = statistics.get(0).get(key).get("Variance").toString();
+    			    tableData[8] = statistics.get(0).get(key).get("Geometric mean").toString();
+    			    tableData[9] = statistics.get(0).get(key).get("Variation coefficient").toString();
+    			    tableData[10] = statistics.get(0).get(key).get("Skewness coefficient").toString();
+    			    tableData[11] = statistics.get(0).get(key).get("Quantile 1/4").toString();
+    			    tableData[12] = statistics.get(0).get(key).get("Curtosis").toString();
+    			    tableData[13] = statistics.get(0).get(key).get("Arithmetic mean").toString();
+
     			    model.addRow( tableData );
     				
     			}
