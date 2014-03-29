@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
 import java.awt.Color;
+import java.awt.GridLayout;
  
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
@@ -43,6 +44,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	private DefaultTableModel model;
 
 	public Map<Integer, Map<String, Map<String, Double>>> statistics;
+	private JPanel panel_1;
 	
 	/**
 	 * Create the application.
@@ -110,11 +112,19 @@ public class InitialWindow extends JFrame implements ActionListener {
 		getContentPane().add(btnShowResultsInside);
 		
 		model = new DefaultTableModel();
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(22, 292, 707, 230);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		table = new JTable(model);
 		table.setBounds(12, 292, 740, 243);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		getContentPane().add(table);
 		
-
+		JScrollPane pane = new JScrollPane(table);
+		panel_1.add(pane);
+		
 		
 		
 		
@@ -204,8 +214,7 @@ public class InitialWindow extends JFrame implements ActionListener {
     	if ( event.getSource() == btnShowResultsInside ) {
     		
     		// Create a couple of columns 
-    		model.addColumn("Col1"); 
-    		model.addColumn("Col2"); 
+    		model.addColumn("iris-who"); 
 
     		// Append a row 
     		
@@ -213,19 +222,35 @@ public class InitialWindow extends JFrame implements ActionListener {
     		System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
     		
     			//TODO tableData size x and y must be set differently, hardcoded now here.
-    			Object[][] tableData = new Object[statistics.get(0).get("Iris-virginica").keySet().size()][3];
-
+    			Object[] tableData = new Object[3];
+    			
+    			tableData[0] = "AC";
+    			tableData[1] = "Median";
+    			tableData[2] = "H mean";
+    			
+    			model.addRow( tableData );
+    			
     			int index = 0;
     			for (String key : statistics.get(0).keySet())
     			{
     				
-    				System.out.print(statistics.get(0).get(key).get("Assymetry coefficient"));
-    				System.out.print(statistics.get(0).get(key).get("Median"));
-    				System.out.print(statistics.get(0).get(key).get("Harmonic mean"));
+    				String ac = statistics.get(0).get(key).get("Assymetry coefficient").toString();
+    				String median = statistics.get(0).get(key).get("Median").toString();
+    				String hmean = statistics.get(0).get(key).get("Harmonic mean").toString();
+    				
+    				
+    			    tableData[0] = ac;
+    			    tableData[1] = median;
+    			    tableData[2] = hmean;
+    			    // and so forth
+    			    index++;
+    			    model.addRow( tableData );
     				
     			}
     			
-    			model.addRow( tableData );
+    			//model.addRow( tableData );
+    			
+    			
     		
     	}
     	
