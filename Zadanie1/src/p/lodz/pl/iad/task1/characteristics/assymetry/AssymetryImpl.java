@@ -15,7 +15,7 @@ public class AssymetryImpl implements IAssymetry{
        double thirdCentralMoment = calculateThirdCentralMoment(data);
        double standardDeviation = statisticalDispertionCalculations.calculateStandardDeviation(data);
        
-       return thirdCentralMoment/(Math.pow(standardDeviation, 3)); 
+       return thirdCentralMoment/(Math.pow(standardDeviation, 3.0)); 
     }
     
     @Override
@@ -36,7 +36,7 @@ public class AssymetryImpl implements IAssymetry{
         double sum=0;
         double arithmeticMean = averageCalculations.calculateArithmeticMean(data);
         for(double elem : data){
-            sum+=Math.pow((elem-arithmeticMean), 3);
+            sum+=Math.pow((elem-arithmeticMean), 3.0);
         }
 
         return 1/size*sum;
@@ -49,7 +49,7 @@ public class AssymetryImpl implements IAssymetry{
         double sum=0;
         double arithmeticMean = averageStatistics.calculateArithmeticMean(data);
         for(double elem : data){
-            sum+=Math.pow((elem-arithmeticMean), 4);
+            sum+=Math.pow((elem-arithmeticMean), 4.0);
         }
 
         return 1/size*sum;

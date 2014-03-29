@@ -24,7 +24,7 @@ public class AverageImpl implements IAverage{
         for (double elem : data) {
             rootNum *= elem;
         }
-        return Math.pow(rootNum, 1 / rootPower);
+        return Math.pow(rootNum, 1.0 / rootPower);
     }
 
     @Override
