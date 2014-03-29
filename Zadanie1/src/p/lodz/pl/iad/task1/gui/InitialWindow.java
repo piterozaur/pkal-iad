@@ -13,22 +13,34 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Color;
 import java.awt.GridLayout;
-<<<<<<< HEAD
-=======
+
+
+import javax.swing.table.DefaultTableModel;
+
+import p.lodz.pl.iad.task1.helpers.FileChooser;
+import p.lodz.pl.iad.task1.helpers.FileHelper;
+import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+import java.awt.Color;
+import java.awt.GridLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout.Alignment;
->>>>>>> Swing modifications
- 
+
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
  * 
  * @author Piotr Kluch 165436
  *
  */
+
 public class InitialWindow extends JFrame implements ActionListener {
 
 	/**
@@ -40,6 +52,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	public JTextField textFieldAttributesNumber;
 	public JTextField textFieldClassesNumber;
 	private JTextField textFieldFileName;
+
 
 	private JComboBox comboBoxChooseAttribute;
 	
@@ -54,6 +67,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 
 	public Map<Integer, Map<String, Map<String, Double>>> statistics;
 	private JPanel panel_1;
+
 	
 	/**
 	 * Create the application.
@@ -127,7 +141,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		getContentPane().add(btnShowResultsInside);
 		
 		model = new DefaultTableModel();
-		
+
 		panel_1 = new JPanel();
 		panel_1.setBounds(12, 206, 1021, 442);
 		getContentPane().add(panel_1);
@@ -139,6 +153,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 		JScrollPane pane = new JScrollPane(table);
 		pane.setBounds(0, 0, 1021, 442);
 		panel_1.add(pane);
+
 
 		JLabel lblDataFileName = new JLabel("Data file name:");
 		lblDataFileName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -222,7 +237,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	 * All actions performed on button click, etc...
 	 */
     public void actionPerformed(ActionEvent event){
-    	
+
     	if ( event.getSource() == btnLoadDataSet ) {
     	
     		//TODO Vars duplicates here
@@ -298,13 +313,14 @@ public class InitialWindow extends JFrame implements ActionListener {
     		
     	}
     	
+
     	////Generate keys
         //if ( event.getSource() == theView.btnGenerateKeys ) {
             
         //	setKeys(generateKey_1(), generateKey_2(), generateKey_3());
         	
         //}
-       
+
     }
 
 	
@@ -314,4 +330,5 @@ public class InitialWindow extends JFrame implements ActionListener {
 	public void setKeys(String something) {
 	
 	}
+	
 }
