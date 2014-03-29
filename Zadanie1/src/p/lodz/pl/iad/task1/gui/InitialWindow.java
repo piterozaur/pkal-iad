@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import p.lodz.pl.iad.task1.helpers.FileChooser;
 import p.lodz.pl.iad.task1.helpers.FileHelper;
+import p.lodz.pl.iad.task1.helpers.PlotHelper;
 import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
 import p.lodz.pl.iad.task1.helpers.TableColumnHider;
 
@@ -465,6 +466,14 @@ public class InitialWindow extends JFrame implements ActionListener {
         }
         
         //System.out.print(statistics.keySet().size());
+        
+        String histogramPath = HISTOGRAM_PATH; //textFieldHistogramDir.getText();
+        
+        //Draws histograms
+        for(int key : dataMaps.keySet()){
+            PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
+        }
+        
 		
 	}
     
