@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.swing.UIManager;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Constants;
+
 import p.lodz.pl.iad.task1.helpers.FileHelper;
 import p.lodz.pl.iad.task1.helpers.PlotHelper;
 import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
@@ -29,17 +31,20 @@ public class Task1 {
         
     public static void main(String[] args) {
         
-        Map<Integer, Map<String, List<Double>>> dataMaps= FileHelper.readDataFromFile(SAMPLE_PATH, SEPARATOR);
+        Map<Integer, Map<String, List<Double>>> dataMaps = FileHelper.readDataFromFile(SAMPLE_PATH, SEPARATOR);
         StatisticsHelper statisticsHelper = new StatisticsHelper();
         
         Map<Integer, Map<String, Map<String, Double>>> statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
         String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
         
-        System.out.println(statisticsString);
+        //System.out.print(statisticsString);
+        
+        System.out.println(statistics);
+        //System.out.print(Constants.);
         
         //Draws histograms
 //        for(int key : dataMaps.keySet()){
-            PlotHelper.drawHistogram(dataMaps.get(1), HISTOGRAM_PATH);
+            //PlotHelper.drawHistogram(dataMaps.get(1), HISTOGRAM_PATH);
 //        }
         
         
