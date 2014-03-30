@@ -63,7 +63,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	public JButton btnLoadDataSet;
 	public JTextField textFieldAttributesNumber;
 	public JTextField textFieldClassesNumber;
-	private JTextField textFieldFileName;
+	public JTextField textFieldFileName;
 
 
 	private JComboBox comboBoxChooseAttribute;
@@ -158,6 +158,8 @@ public class InitialWindow extends JFrame implements ActionListener {
 		model.addColumn("Quantile 1/4"); 
 		model.addColumn("Curtosis"); 
 		model.addColumn("Arithmetic mean"); 
+		
+		model.addColumn("Filename");
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel checkBoxes = new JPanel();
@@ -380,12 +382,12 @@ public class InitialWindow extends JFrame implements ActionListener {
     		//System.out.println(statistics.get(0).get("Iris-virginica").get("Median"));
     		
 			//TODO tableData size x and y must be set differently, hardcoded now here.
-			Object[] tableData = new Object[14];
+			Object[] tableData = new Object[15];
 			
 			model.addRow( tableData );
 			
 			String className = null;
-
+			String fileNameCell = textFieldFileName.getText().toString();
 			
 			for (String key : statistics.get(dataSetValueKey).keySet())
 			{
@@ -407,6 +409,8 @@ public class InitialWindow extends JFrame implements ActionListener {
 			    tableData[11] = statistics.get(dataSetValueKey).get(key).get("Quantile 1/4").toString();
 			    tableData[12] = statistics.get(dataSetValueKey).get(key).get("Curtosis").toString();
 			    tableData[13] = statistics.get(dataSetValueKey).get(key).get("Arithmetic mean").toString();
+			    
+			    tableData[14] = fileNameCell;
 
 			    model.addRow( tableData );
 				
@@ -437,7 +441,6 @@ public class InitialWindow extends JFrame implements ActionListener {
 			//TODO Vars duplicates here
 			separator = textFieldAttrSeparator.getText();
 			
-			
 			path = fc.openDialog();
 			fileName = fc.currentFileName;
 	
@@ -451,22 +454,38 @@ public class InitialWindow extends JFrame implements ActionListener {
 			
 		}
 		
-        Map<Integer, Map<String, List<Double>>> dataMaps = FileHelper.readDataFromFile(path, separator);
-        StatisticsHelper statisticsHelper = new StatisticsHelper();
+		Map<Integer, Map<String, List<Double>>> dataMaps = null;
+		statistics = null;
+		try {
+		
+	        dataMaps = FileHelper.readDataFromFile(path, separator);
+	        StatisticsHelper statisticsHelper = new StatisticsHelper();
+	        
+	        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
+	        //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
         
-        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
-        //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
+		} catch ( Exception e ) {
+			
+			JOptionPane.showMessageDialog(this,
+				    "It looks like the attribute separator is not correct. Please provide appropriate separator in the \"Settings\" box.",
+				    "Data parse error",
+				    JOptionPane.ERROR_MESSAGE);
+			
+		}
         
 		//Set Info values
         textFieldFileName.setText( fileName );
         String classesNumber = Integer.toString(statistics.get(0).keySet().size());
         textFieldClassesNumber.setText( classesNumber );
-        String attributesNumber = Integer.toString(statistics.keySet().size()-1); //TODO better way (addon method)
+        String attributesNumber = Integer.toString(statistics.keySet().size()); //Now counts with all and subclasses val
         textFieldAttributesNumber.setText( attributesNumber );
+        
+        //Remove old
+        comboBoxChooseAttribute.removeAllItems();
         
         //Add attributes to combo box
         for(Integer key : statistics.keySet()){
-        	comboBoxChooseAttribute.addItem( "Dataset: " + key );
+        	comboBoxChooseAttribute.addItem( fileName + " - Dataset: " + key );
         }
         
         //System.out.print(statistics.keySet().size());
@@ -475,7 +494,7 @@ public class InitialWindow extends JFrame implements ActionListener {
         
         //Draws histograms
         for(int key : dataMaps.keySet()){
-            //PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
+            PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
         }
         
 		
