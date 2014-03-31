@@ -462,7 +462,7 @@ public class InitialWindow extends JFrame implements ActionListener {
 	        StatisticsHelper statisticsHelper = new StatisticsHelper();
 	        
 	        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
-	        //String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
+//	        String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
         
 		} catch ( Exception e ) {
 			
@@ -494,7 +494,7 @@ public class InitialWindow extends JFrame implements ActionListener {
         
         //Draws histograms
         for(int key : dataMaps.keySet()){
-            PlotHelper.drawHistogram(dataMaps.get(key), histogramPath);
+            PlotHelper.drawHistogram(String.valueOf(key+1), dataMaps.get(key), histogramPath);
         }
         
 		
