@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,17 +53,19 @@ public class PlotHelper {
                 max=elem;
             }
         }
-        double min = max-range;
+
         double histogramBoxWidth = 0.25;
-        int size = (int) (range/histogramBoxWidth)+3;
+        double minBox = ((int) ((max-range)/histogramBoxWidth))*histogramBoxWidth;
+        double maxBox = ((int) (max/histogramBoxWidth ))*histogramBoxWidth;
+        int size = (int) ((maxBox-minBox)/histogramBoxWidth)+3;
         
         double histogram[][] = new double[size][2];
         for(double elem : data){
-            for(int i=0;i<20;i++){
-                if((elem>histogramBoxWidth*i+min)&&(elem<histogramBoxWidth*(i+1)+min)){
+            for(int i=0;i<size;i++){
+                if((elem>histogramBoxWidth*i+minBox)&&(elem<histogramBoxWidth*(i+1)+minBox)){
                     System.out.println(i + " y " + elem + "\n");
                     histogram[i][1]++;
-                    histogram[i][0]=i*histogramBoxWidth+min;
+                    histogram[i][0]=i*histogramBoxWidth+minBox;
                 }
             }
         }
@@ -82,7 +83,7 @@ public class PlotHelper {
                 sb.append("\n");
             }
             bw.write(sb.toString());
-            bw.close(); System.out.println("Done");
+            bw.close();
  
         } catch (IOException e) {
             e.printStackTrace();
