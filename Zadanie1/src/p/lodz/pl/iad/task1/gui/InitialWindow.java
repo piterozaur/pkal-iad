@@ -58,7 +58,7 @@ public class InitialWindow extends JFrame implements ActionListener {
     private static final String SAMPLE_PATH = USER_DIR + "/data/sample.dat";
     private static final String SEPARATOR = ",";
     private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
-    private static final String HISTOGRAM_PATH = USER_DIR + "/data";
+    private static final String HISTOGRAM_PATH = USER_DIR + "/data/graphs";
 	
 	public JButton btnLoadDataSet;
 	public JTextField textFieldAttributesNumber;
