@@ -41,11 +41,12 @@ public class InitialWindow extends JFrame implements ActionListener {
     private static final String STATISTICS_PATH = USER_DIR + "/data/stats.txt";
     private static final String HISTOGRAM_PATH = USER_DIR + "/data/graphs";
 	
+    public JFrame frame;
+    
 	public JButton btnLoadDataSet;
 	public JTextField textFieldAttributesNumber;
 	public JTextField textFieldClassesNumber;
 	public JTextField textFieldFileName;
-
 
 	private JComboBox comboBoxChooseAttribute;
 	private JButton btnAppendResultsInside;
@@ -307,16 +308,24 @@ public class InitialWindow extends JFrame implements ActionListener {
 			}
         });
 		
-		JMenu about = new JMenu("Help");
-		menuBar.add(about);
-
+		JMenu help = new JMenu("Help");
+		menuBar.add(help);
+		
+		JMenuItem about = new JMenuItem("About");
+		help.add(about);
+		
 		//Inline listener for about action.
 		about.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO add about
+				JOptionPane.showMessageDialog(
+						frame, 
+						"Inteligentna Analiza Danych\nZadanie 1 \n\nVersion: v. 0.0.1\n\nAuthors:\nAndrzej Lisowski 171131\nPiotr Kluch 165436\n\n", 
+						"About", 
+						JOptionPane.INFORMATION_MESSAGE
+						);
 			}
-        });
+		});
 		
 	}
 	

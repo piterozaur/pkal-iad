@@ -46,6 +46,7 @@ import javax.swing.filechooser.*;
  */
 public class FileChooser extends JPanel
                              implements ActionListener {
+	
     static private final String newline = "\n";
     JButton openButton, saveButton;
     JTextArea log;
