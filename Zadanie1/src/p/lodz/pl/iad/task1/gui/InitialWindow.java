@@ -16,28 +16,9 @@ import java.util.Map;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-
-import javax.swing.table.DefaultTableModel;
-
-import p.lodz.pl.iad.task1.helpers.FileChooser;
-import p.lodz.pl.iad.task1.helpers.FileHelper;
-import p.lodz.pl.iad.task1.helpers.StatisticsHelper;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.CardLayout;
 
 /**
  * InitialWindow class initializes Swing components, is responsible for view interaction and event listeners.
