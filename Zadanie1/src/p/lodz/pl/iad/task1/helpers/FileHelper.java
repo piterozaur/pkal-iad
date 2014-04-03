@@ -21,7 +21,7 @@ public class FileHelper {
      * @param separator
      * @return map containing of n maps of "attribute value" - "list of values"
      */
-    public static Map<Integer, Map<String, List<Double>>> readDataFromFile(String path, String separator) {
+    public static Map<Integer, Map<String, List<Double>>> readDataFromFile(String path, String separator, boolean isHypothesisTestingActive) {
         Map<Integer, Map<String, List<Double>>> result = new HashMap<Integer, Map<String, List<Double>>>();
         try {
             boolean continueReading = true;
@@ -37,6 +37,9 @@ public class FileHelper {
                     for (int i = 0; data.length > i; i++) {
                         if (data[i].matches(".*[a-zA-Z].*")) {
                             nominalAttribute = data[i];
+                        } else if (isHypothesisTestingActive){
+                            int lastElem = data.length-1;
+                            nominalAttribute = data[lastElem];
                         }
                     }
                     if (nominalAttribute.equals("")) {

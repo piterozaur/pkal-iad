@@ -447,11 +447,12 @@ public class InitialWindow extends JFrame implements ActionListener {
 		Map<Integer, Map<String, List<Double>>> dataMaps = null;
 		statistics = null;
 		try {
-		
-	        dataMaps = FileHelper.readDataFromFile(path, separator);
+		    //TODO:
+		    boolean isHypothesisTestingActive = true;
+	        dataMaps = FileHelper.readDataFromFile(path, separator, isHypothesisTestingActive);
 	        StatisticsHelper statisticsHelper = new StatisticsHelper();
 	        
-	        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps);
+	        statistics = statisticsHelper.getAllStatiscticsFromDataSets(dataMaps, isHypothesisTestingActive);
 //	        String statisticsString = FileHelper.saveStatisticsFromDataSets(statistics, STATISTICS_PATH);
         
 		} catch ( Exception e ) {

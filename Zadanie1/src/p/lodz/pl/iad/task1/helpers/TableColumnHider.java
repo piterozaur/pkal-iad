@@ -1,10 +1,11 @@
 package p.lodz.pl.iad.task1.helpers;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 public class TableColumnHider {
 

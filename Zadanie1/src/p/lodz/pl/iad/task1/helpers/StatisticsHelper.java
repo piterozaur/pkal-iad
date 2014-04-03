@@ -12,10 +12,12 @@ import p.lodz.pl.iad.task1.characteristics.concentration.ConcentrationDistributi
 import p.lodz.pl.iad.task1.characteristics.concentration.IConcentrationDistribution;
 import p.lodz.pl.iad.task1.characteristics.dispertion.IStatisticalDispertion;
 import p.lodz.pl.iad.task1.characteristics.dispertion.StatisticalDispertionImpl;
+import p.lodz.pl.iad.task1.characteristics.hypothesisTesting.ITestingHypothesis;
+import p.lodz.pl.iad.task1.characteristics.hypothesisTesting.TestingHypothesisImpl;
 
 public class StatisticsHelper {
 
-    public Map<Integer, Map<String, Map<String, Double>>> getAllStatiscticsFromDataSets(Map<Integer, Map<String, List<Double>>> dataMaps){
+    public Map<Integer, Map<String, Map<String, Double>>> getAllStatiscticsFromDataSets(Map<Integer, Map<String, List<Double>>> dataMaps, boolean isHypothesisTestingActive){
         Map<Integer, Map<String, Map<String, Double>>> statistics = new HashMap<Integer, Map<String, Map<String, Double>>>();
         
         for(Integer key : dataMaps.keySet()){
@@ -24,6 +26,11 @@ public class StatisticsHelper {
                 statisticsFromDataSet.put(nominalAttribute, getAllStatiscticsFromDataSet(dataMaps.get(key).get(nominalAttribute)));
             }
             statistics.put(key, statisticsFromDataSet);
+        }
+        
+        if(isHypothesisTestingActive){
+            ITestingHypothesis testingHypothesis = new TestingHypothesisImpl();
+            testingHypothesis.testHypothesis(dataMaps);
         }
         
         return statistics;
